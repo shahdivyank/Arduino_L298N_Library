@@ -15,8 +15,8 @@
       void attachMotor();
       void stopMotor();
       void defineSpeed(byte velocity);
-      void getSpeed();
-      void getDirection();
+      byte getSpeed();
+      bool getDirection();
       void setVelocity(String directionType, byte velocity, String velocityUnits);
       void spin();
       void spin(String directionType, byte velocity, String velocityUnits);
