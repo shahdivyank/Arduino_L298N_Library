@@ -5,41 +5,41 @@
 
 class L298N {
    private:
-     byte _enable;
-     byte _forward;
-     byte _backward;
-     byte _speed;
-     bool _direction;
-     bool _isMoving;
+    byte _enable;
+    byte _forward;
+    byte _backward;
+    byte _speed;
+    bool _direction;
+    bool _isMoving;
 
    public:
-     L298N();
-     L298N(byte enable, byte forward, byte backward);
+    L298N();
+    L298N(byte enable, byte forward, byte backward);
 
-     void setEnable(byte enable);
-     byte getEnable();
+    void setEnablePin(byte enable);
+    byte getEnablePin();
 
-     void setForward(byte forward);
-     byte getForward();
+    void setForwardPin(byte forward);
+    byte getForwardPin();
 
-     void setBackward(byte backward);
-     byte getBackward();
+    void setBackwardPin(byte backward);
+    byte getBackwardPin();
 
-     void setSpeed(byte speed, String units);
-     byte getSpeed();
+    void setSpeed(byte speed, String units);
+    byte getSpeed();
 
-     void setDirection(String direction);
-     string getDirection();
+    void setDirection(String direction);
+    String getDirection();
 
-     void stop();
+    void stop();
 
-     void spin();
-     void spin(String direction);
-     void spin(String direction, byte speed, String units);
+    void spin();
+    void spin(String direction);
+    void spin(String direction, byte speed, String units);
 
-     void rotateFor(unsigned int time);
-     void rotateFor(unsigned int time, String direction);
-     void rotateFor(unsigned int time, String direction, byte speed, String units);
+    void rotateFor(unsigned int time);
+    void rotateFor(unsigned int time, String direction);
+    void rotateFor(unsigned int time, String direction, byte speed, String units);
 
 };
 

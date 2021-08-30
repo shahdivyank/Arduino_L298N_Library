@@ -1,124 +1,187 @@
 #include "Arduino.h"
 #include "L298N.h"
 
-L298N::L298N(byte enable, byte forward, byte backward){
-  enablePin = enable;
-  forwardPin = forward;
-  backwardPin = backward;
+L298N::L298N() {
+
 }
 
-void L298N::attachMotor(){
-  pinMode(enablePin, OUTPUT);
-  pinMode(forwardPin, OUTPUT);
-  pinMode(backwardPin, OUTPUT);
+L298N::L298N(byte enable, byte forward, byte backward) {
+    _enable = enable;
+    _forward = forward;
+    _backward = backward;
+
+    pinMode(_enable, OUTPUT);
+    pinMode(_forward, OUTPUT);
+    pinMode(_backward, OUTPUT);
 }
 
-void L298N::stopMotor(){
-  digitalWrite(enable, LOW);
-  digitalWrite(forwardPin, LOW);
-  digitalWrite(backwardPin, LOW);
+void L298N::setEnablePin(byte enable){
+    _enable = enable;
+    pinMode(_enable, OUTPUT);
 }
 
-void defineSpeed(byte velocity){
-  motorSpeed = velocity;
+byte L298N::getEnablePin(){
+    return _enable;
 }
 
-byte getSpeed(){
-  return motorSpeed;
+void L298N::setForwardPin(byte forward){
+    _forward = forward;
+    pinMode(_forward, OUTPUT);
 }
 
-bool getDirection(){
-  return motorDirection;
+byte L298N::getForwardPin(){
+    return _forward;
 }
 
-void L298N::setVelocity(String directionType, byte velocity, String velocityUnits){
-  directionType.trim();
-  directionType.toUpperCase();
-  if(directionType == "FWD" || directionType == "FORWARD"){
-    digitalWrite(enable, LOW);
-    digitalWrite(forwardPin, HIGH);
-    digitalWrite(backwardPin, LOW);
-    motorDirection = true;
-  } else if(directionType == "REV" || directionType == "REVERSE"){
-    digitalWrite(enable, LOW);
-    digitalWrite(forwardPin, LOW);
-    digitalWrite(backwardPin, HIGH);
-    motorDirection = false;
-  }
-  
-  velocityUnits.trim();
-  velocityUnits.toUpperCase();
-  if(velocityUnits == "PCT" ||velocityUnits == "percentage")
-    motorSpeed = map(velocity, 0, 255, 0, 100);
-  else if(velocityUnits == "PWM" || velocityUnits  == "ANALOG")
-    motorSpeed = velocity;
+void L298N::setBackwardPin(byte backward){
+    _backward = backward;
+    pinMode(_backward, OUTPUT);
+}
+
+byte L298N::getBackwardPin(){
+    return _backward;
+}
+
+void L298N::setSpeed(byte speed, String units){
+    String parsedUnits = units.trim().toUpperCase();
+    if(parsedUnits == "PCT" || parsedUnits == "PERCENTAGE")
+        _speed = map(speed, 0, 255, 0, 100);
+    if(parsedUnits == "PWM")
+        _speed = units;
+}
+
+byte L298N::getSpeed(){
+    return _speed;
+}
+
+void L298N::setDirection(String direction){
+    String parsedDirection = direction.trim().toUpperCase();
+    if(parsedDirection == "FWD" || parsedDirection == "FORWARD")
+        _direction = true;
+    if(parsedDirection == "REV" || parsedDirection == "BACKWARD")
+        _direction = false;
+
+    if (_direction){
+        digitalWrite(_forward, HIGH);
+        digitalWrite(_backward, LOW);
+    }
+    if(!_direction){
+        digitalWrite(_forward, LOW);
+        digitalWrite(_backward, HIGH);
+    }
+}
+
+String L298N::getDirection(){
+    if(_direction)
+        return "Forward";
+    if(!_direction)
+        return "Backward";
+}
+
+void L298N::stop(){
+    analogWrite(_enable, 0);
 }
 
 void L298N::spin(){
-  analogWrite(enable, motorSpeed);
+    analogWrite(_enable, _speed);
 }
 
-void L298N::spin(String directionType, byte velocity, String velocityUnits){
-  velocityUnits.trim();
-  velocityUnits.toUpperCase();
-  if(velocityUnits == "PCT" ||velocityUnits == "percentage")
-    motorSpeed = map(velocity, 0, 100, 0, 255);
-  else if(velocityUnits == "PWM" || velocityUnits  == "ANALOG")
-    motorSpeed = velocity;
-  
-  directionType.trim();
-  directionType.toUpperCase();
-  if(directionType == "FWD" || directionType == "FORWARD"){
-    analogWrite(enable, motorSpeed);
-    digitalWrite(forwardPin, HIGH);
-    digitalWrite(backwardPin, LOW);
-    motorDirection = true;
-  } else if(directionType == "REV" || directionType == "REVERSE"){
-    analogWrite(enable, motorSpeed);
-    digitalWrite(forwardPin, LOW);
-    digitalWrite(backwardPin, HIGH);
-    motorDirection = False;
-  }
-}
-void L298N::rotateFor(unsigned int delayTime, String directionType, byte velocity, String velocityUnits){
-  spin(directionType, velocity, velocityUnits);
-  delay(delayTime);
-  stopMotor();
+void L298N::spin(String direction){
+    String parsedDirection = direction.trim().toUpperCase();
+    if(parsedDirection == "FWD" || parsedDirection == "FORWARD")
+        _direction = true;
+    if(parsedDirection == "REV" || parsedDirection == "BACKWARD")
+        _direction = false;
+
+    if (_direction){
+        analogWrite(_enable, _speed);
+        digitalWrite(_forward, HIGH);
+        digitalWrite(_backward, LOW);
+    }
+    if(!_direction){
+        analogWrite(_enable, _speed);
+        digitalWrite(_forward, LOW);
+        digitalWrite(_backward, HIGH);
+    }
 }
 
-void L298N::spinForward(){
-  analogWrite(enable, motorSpeed);
-  digitalWrite(forwardPin, HIGH);
-  digitalWrite(backwardPin, LOW);
-  motorDirection = true;
+void L298N::spin(String diretion, byte speed, String units){
+    String parsedDirection = direction.trim().toUpperCase();
+    if(parsedDirection == "FWD" || parsedDirection == "FORWARD")
+        _direction = true;
+    if(parsedDirection == "REV" || parsedDirection == "BACKWARD")
+        _direction = false;
+
+    String parsedUnits = units.trim().toUpperCase();
+    if(parsedUnits == "PCT" || parsedUnits == "PERCENTAGE")
+        _speed = map(speed, 0, 255, 0, 100);
+    if(parsedUnits == "PWM")
+        _speed = units;
+
+    if (_direction){
+        analogWrite(_enable, _speed);
+        digitalWrite(_forward, HIGH);
+        digitalWrite(_backward, LOW);
+    }
+    if(!_direction){
+        analogWrite(_enable, _speed);
+        digitalWrite(_forward, LOW);
+        digitalWrite(_backward, HIGH);
+    }
 }
 
-void L298N::spinForward(byte velocity, String velocityUnits){
-  velocityUnits.trim();
-  velocityUnits.toUpperCase();
-  if(velocityUnits == "PCT" ||velocityUnits == "percentage")
-    motorSpeed = map(velocity, 0, 100, 0, 255);
-  else if(velocityUnits == "PWM" || velocityUnits  == "ANALOG")
-    motorSpeed = velocity;
-
-  spinForward();
+void L298N::rotateFor(unsigned int time){
+    analogWrite(_enable, _speed);
+    delay(time);
+    stop();
 }
 
+void L298N::rotateFor(unsigned int time, String direction){
+    String parsedDirection = direction.trim().toUpperCase();
+    if(parsedDirection == "FWD" || parsedDirection == "FORWARD")
+        _direction = true;
+    if(parsedDirection == "REV" || parsedDirection == "BACKWARD")
+        _direction = false;
 
-void L298N::spinBackward(){
-  analogWrite(enable, motorSpeed);
-  digitalWrite(forwardPin, LOW);
-  digitalWrite(backwardPin, HIGH);
-  motorDirection = false;
+    if (_direction){
+        analogWrite(_enable, _speed);
+        digitalWrite(_forward, HIGH);
+        digitalWrite(_backward, LOW);
+    }
+    if(!_direction){
+        analogWrite(_enable, _speed);
+        digitalWrite(_forward, LOW);
+        digitalWrite(_backward, HIGH);
+    }
+
+    delay(time);
+    stop();
 }
 
-void L298N::spinBackward(byte velocity, String velocityUnits){
-  velocityUnits.trim();
-  velocityUnits.toUpperCase();
-  if(velocityUnits == "PCT" ||velocityUnits == "percentage")
-    motorSpeed = map(velocity, 0, 100, 0, 255);
-  else if(velocityUnits == "PWM" || velocityUnits  == "ANALOG")
-    motorSpeed = velocity;
+void L298N::rotateFor(unsigned int time, String direction, byte speed, String units){
+    String parsedDirection = direction.trim().toUpperCase();
+    if(parsedDirection == "FWD" || parsedDirection == "FORWARD")
+        _direction = true;
+    if(parsedDirection == "REV" || parsedDirection == "BACKWARD")
+        _direction = false;
 
-  spinBackward();
+    String parsedUnits = units.trim().toUpperCase();
+    if(parsedUnits == "PCT" || parsedUnits == "PERCENTAGE")
+        _speed = map(speed, 0, 255, 0, 100);
+    if(parsedUnits == "PWM")
+        _speed = units;
+
+    if (_direction){
+        analogWrite(_enable, _speed);
+        digitalWrite(_forward, HIGH);
+        digitalWrite(_backward, LOW);
+    }
+    if(!_direction){
+        analogWrite(_enable, _speed);
+        digitalWrite(_forward, LOW);
+        digitalWrite(_backward, HIGH);
+    }
+
+    delay(time);
+    stop();
 }
