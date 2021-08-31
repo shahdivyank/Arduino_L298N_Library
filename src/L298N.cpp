@@ -43,7 +43,7 @@ void L298N::setSpeed(byte speed, String units){
     if(parsedUnits == "PCT" || parsedUnits == "PERCENTAGE")
         _speed = map(speed, 0, 255, 0, 100);
     if(parsedUnits == "PWM")
-        _speed = units;
+        _speed = speed;
 }
 
 byte L298N::getSpeed(){
@@ -112,7 +112,7 @@ void L298N::spin(String diretion, byte speed, String units){
     if(parsedUnits == "PCT" || parsedUnits == "PERCENTAGE")
         _speed = map(speed, 0, 255, 0, 100);
     if(parsedUnits == "PWM")
-        _speed = units;
+        _speed = speed;
 
     if (_direction){
         analogWrite(_enable, _speed);
@@ -165,7 +165,7 @@ void L298N::rotateFor(unsigned int time, String direction, byte speed, String un
     if(parsedUnits == "PCT" || parsedUnits == "PERCENTAGE")
         _speed = map(speed, 0, 255, 0, 100);
     if(parsedUnits == "PWM")
-        _speed = units;
+        _speed = speed;
 
     if (_direction){
         analogWrite(_enable, _speed);
