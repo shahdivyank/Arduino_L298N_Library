@@ -104,7 +104,7 @@ void L298N::spin(String direction){
     }
 }
 
-void L298N::spin(String diretion, byte speed, String units){
+void L298N::spin(String direction, byte speed, String units){
     direction.trim();
     direction.toUpperCase();
     if(direction == "FWD" || direction == "FORWARD")
