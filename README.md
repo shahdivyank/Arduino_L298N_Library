@@ -1,4 +1,4 @@
-# Arduino L298N Library
+# Arduino L298N/L293D Library
 A beginner friendly and acessible library to use with the L298N/L293D motor drivers alongside Arduino. 
 
 # Library Installation
