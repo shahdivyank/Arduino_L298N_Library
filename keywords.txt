@@ -1,18 +1,18 @@
-L298N   KEYWORD1
+L298N KEYWORD1
 
-setEnablePin    KEYWORD2
-getEnablePin    KEYWORD2
-setForwardPin   KEYWORD2
-getForwardPin   KEYWORD2
+setEnablePin  KEYWORD2
+getEnablePin  KEYWORD2
+setForwardPin KEYWORD2
+getForwardPin KEYWORD2
 setBackwardPin  KEYWORD2
 getBackwardPin  KEYWORD2
-setSpeed    KEYWORD2
-getSpeed    KEYWORD2
-setDirection    KEYWORD2
-getDirection    KEYWORD2
-stop    KEYWORD2
-spin    KEYWORD2
-rotateFor   KEYWORD2
+setSpeed  KEYWORD2
+getSpeed  KEYWORD2
+setDirection  KEYWORD2
+getDirection  KEYWORD2
+stop  KEYWORD2
+spin  KEYWORD2
+rotateFor KEYWORD2
 
 pct LITERAL1
 PCT LITERAL1
@@ -26,5 +26,5 @@ rev LITERAL1
 REV LITERAL1
 forward LITERAL1
 FORWARD LITERAL1
-backward    LITERAL1
-BACKWARD    LITERAL1
+backward  LITERAL1
+BACKWARD  LITERAL1
