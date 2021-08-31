@@ -1,10 +1,6 @@
 #include "Arduino.h"
 #include "L298N.h"
 
-L298N::L298N() {
-
-}
-
 L298N::L298N(byte enable, byte forward, byte backward) {
     _enable = enable;
     _forward = forward;

@@ -13,7 +13,6 @@ class L298N {
     bool _isMoving;
 
    public:
-    L298N();
     L298N(byte enable, byte forward, byte backward);
 
     void setEnablePin(byte enable);
