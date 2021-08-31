@@ -39,10 +39,11 @@ byte L298N::getBackwardPin(){
 }
 
 void L298N::setSpeed(byte speed, String units){
-    String parsedUnits = units.trim().toUpperCase();
-    if(parsedUnits == "PCT" || parsedUnits == "PERCENTAGE")
+    units.trim();
+    units.toUpperCase();
+    if(units == "PCT" || units == "PERCENTAGE")
         _speed = map(speed, 0, 255, 0, 100);
-    if(parsedUnits == "PWM")
+    if(units == "PWM")
         _speed = speed;
 }
 
@@ -51,10 +52,11 @@ byte L298N::getSpeed(){
 }
 
 void L298N::setDirection(String direction){
-    String parsedDirection = direction.trim().toUpperCase();
-    if(parsedDirection == "FWD" || parsedDirection == "FORWARD")
+    direction.trim();
+    direction.toUpperCase();
+    if(direction == "FWD" || direction == "FORWARD")
         _direction = true;
-    if(parsedDirection == "REV" || parsedDirection == "BACKWARD")
+    if(direction == "REV" || direction == "BACKWARD")
         _direction = false;
 
     if (_direction){
@@ -83,10 +85,11 @@ void L298N::spin(){
 }
 
 void L298N::spin(String direction){
-    String parsedDirection = direction.trim().toUpperCase();
-    if(parsedDirection == "FWD" || parsedDirection == "FORWARD")
+    direction.trim();
+    direction.toUpperCase();
+    if(direction == "FWD" || direction == "FORWARD")
         _direction = true;
-    if(parsedDirection == "REV" || parsedDirection == "BACKWARD")
+    if(direction == "REV" || direction == "BACKWARD")
         _direction = false;
 
     if (_direction){
@@ -102,16 +105,18 @@ void L298N::spin(String direction){
 }
 
 void L298N::spin(String diretion, byte speed, String units){
-    String parsedDirection = direction.trim().toUpperCase();
-    if(parsedDirection == "FWD" || parsedDirection == "FORWARD")
+    direction.trim();
+    direction.toUpperCase();
+    if(direction == "FWD" || direction == "FORWARD")
         _direction = true;
-    if(parsedDirection == "REV" || parsedDirection == "BACKWARD")
+    if(direction == "REV" || direction == "BACKWARD")
         _direction = false;
 
-    String parsedUnits = units.trim().toUpperCase();
-    if(parsedUnits == "PCT" || parsedUnits == "PERCENTAGE")
+    units.trim();
+    units.toUpperCase();
+    if(units == "PCT" || units == "PERCENTAGE")
         _speed = map(speed, 0, 255, 0, 100);
-    if(parsedUnits == "PWM")
+    if(units == "PWM")
         _speed = speed;
 
     if (_direction){
@@ -133,10 +138,11 @@ void L298N::rotateFor(unsigned int time){
 }
 
 void L298N::rotateFor(unsigned int time, String direction){
-    String parsedDirection = direction.trim().toUpperCase();
-    if(parsedDirection == "FWD" || parsedDirection == "FORWARD")
+    direction.trim();
+    direction.toUpperCase();
+    if(direction == "FWD" || direction == "FORWARD")
         _direction = true;
-    if(parsedDirection == "REV" || parsedDirection == "BACKWARD")
+    if(direction == "REV" || direction == "BACKWARD")
         _direction = false;
 
     if (_direction){
@@ -155,16 +161,18 @@ void L298N::rotateFor(unsigned int time, String direction){
 }
 
 void L298N::rotateFor(unsigned int time, String direction, byte speed, String units){
-    String parsedDirection = direction.trim().toUpperCase();
-    if(parsedDirection == "FWD" || parsedDirection == "FORWARD")
+    direction.trim();
+    direction.toUpperCase();
+    if(direction == "FWD" || direction == "FORWARD")
         _direction = true;
-    if(parsedDirection == "REV" || parsedDirection == "BACKWARD")
+    if(direction == "REV" || direction == "BACKWARD")
         _direction = false;
 
-    String parsedUnits = units.trim().toUpperCase();
-    if(parsedUnits == "PCT" || parsedUnits == "PERCENTAGE")
+    units.trim();
+    units.toUpperCase();
+    if(units == "PCT" || units == "PERCENTAGE")
         _speed = map(speed, 0, 255, 0, 100);
-    if(parsedUnits == "PWM")
+    if(units == "PWM")
         _speed = speed;
 
     if (_direction){
