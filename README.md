@@ -1,12 +1,9 @@
 # Arduino L298N Library
-<img src = "https://user-images.githubusercontent.com/36285610/114322331-7749c680-9ad4-11eb-8f53-99ef95148401.jpg" width = "250px">
-
-Note: Image is from [Smart Prototyping](https://www.smart-prototyping.com/image/cache/data/9_Modules/101861%20LN298N%20dual%20H-bridge%20driver%20motor/1-750x750.jpg).
 A beginner friendly and acessible library to use with the L298N motor drivers alongside Arduino. 
 
 # Library Installation
 
-To install, download as a .zip file and proceed to the Arduino IDE. On the IDE, head to Sketch -> Include Library -> Include ZIP Library. Finder/File Explorer will open and you have to select the .zip file recently downloaded. 
+To install, download this repository as a .zip file and proceed to the Arduino IDE. On the IDE, head to Sketch -> Include Library -> Include ZIP Library. Finder/File Explorer will open and you have to select the .zip file recently downloaded. 
 
 # Library Import
 Method 1: Sketch -> Include Library -> L298N <br>Method 2: Write `#include "L298N.h"` at the top of your sketch
@@ -14,7 +11,6 @@ Method 1: Sketch -> Include Library -> L298N <br>Method 2: Write `#include "L298
 # Object Instantiation 
 Write the following code to create an object of the class to use:
 ```
-C++
 #include "L298N.h"
 
 L298N motor(enablePinA, forwardPin_1, backwardPin_1);
@@ -30,17 +26,22 @@ Note: `enablePinA/enablePinB` must be PWM (signified by ~) capable ports. `forwa
 
 # Library Functions
 
-| Function  | Parameters | Returns |  Description |
+| Methods  | Parameters | Returns |  Description |
 | ------------- | ------------- | ------------- | ------------- |
-| attachMotor()  | void  |  void | setups the pin congfiguration as OUTPUT |
-| stopMotor()  | void  | void  | stops the motor |
-| defineSpeed()  | byte velocity, String velocityUnits  | void  | set the motor speed |
-| getSpeed()  | void  | byte velocity  | retrieve the current motor speed |
-| getDirection()  | void  | bool direction  | retrieve the current motor direction |
-| setVelocity()  | String directionType, byte velocity, String velocityUnits  | void  | set the motor speed to either a value from 0 to 255 (PWM) or 0 to 100 (PCT)| | spin()  | void  | void  | spin the motor |
-| spin()  | String directionType, byte velocity, String velocityUnits  | void  | spin the motor with a specified direction and speed in percentage or PWM |
-| rotateFor()  | unsigned int delayTime, String directionType, byte velocity, String velocityUnits  | void  | spin the motor with a specified direction and speed in percentage or PWM for a set amount of time using delay |
-| spinForward()  | void  | void  | spin in the forward direction |
-| spinForward()  | byte velocity, String velocityUnits  | void  | spin in the forward direction at a given speed in PWM or percentage |
-| spinBackward()  | void  | void  | spin in the backward direction |
-| spinBackward()  | byte velocity, String velocityUnits  | void  | spin in the forward direction at a given speed in PWM or percentage |
+| setEnablePin()  | byte enable  |  void | configures enable pin |
+| getEnablePin()  | void  | byte enable  | returns enable pin number |
+| setForwardPin()  | byte forward  | void | configures forward pin |
+| getForwardPin()  | void  | byte forward | returns forward pin number |
+| setBackwardPin()  | byte backward  | void | configures backward pin |
+| getBackwardPin()  | void  | byte backward  | returns backward pin number| 
+| setSpeed()  | byte speed, String units  | void  | set the motor speed as PWM or PCT |
+| getSpeed()  | void | byte speed  | return the current speed of motor |
+| setDirection()  | String direction  | void  | set direction to FWD or REV |
+| getDirection()  | void  | String direction  | return current direction |
+| stop()  | void  | void  | stop all motor movement |
+| spin()  | void  | void  | spin given prior direction, speed, and units |
+| spin()  | String direction  | void  | spin given prior speed, and units |
+| spin()  | String direction, byte speed, String units  | void  | spin given direction, speed, and units |
+| rotateFor()  | unsigned int time  | void  | spin for given time (in milliseconds) |
+| rotateFor()  | unsigned int time, String direction  | void  | spin for given time (in milliseconds) in specified direction |
+| rotateFor()  | unsigned int time, String direction, byte speed, String units  | void  | spin for given time (in milliseconds) in given direction at given speed |
